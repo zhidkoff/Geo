@@ -35,11 +35,6 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
 
-//$('#myModal').on('shown.bs.modal', function () {
-//    $('#myInput').focus()
-//});
-
-
 function getDetails(id) {
     $.ajax({
         type: "POST",
