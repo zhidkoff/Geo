@@ -1,0 +1,53 @@
+﻿@model ICollection<Employee>
+@{
+    ViewData["Title"] = "Пользователи";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Пользователи</h2>
+<hr />
+<a class="btn btn-default" asp-controller="Account" asp-action="Register">Добавить пользователя</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Фото</th>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>E-mail</th>
+            <th>Роль</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int i = 1;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>
+                    @if (item.Photo != null)
+                    {
+                        @Html.Raw("<img alt='' class='photo' src=\"data:image/jpeg;base64," + Convert.ToBase64String(item.Photo) + "\" />")
+                    }
+                    else
+                    {
+                        <img alt='' src="~/img/defaultUser.png" class="photo" />
+                    }
+                </td>
+                <td>@item.Name</td>
+                <td class="phone">@item.PhoneNumber</td>
+                <td>
+                    @{ var emailUrl = "mailto:" + item.Email;}
+                    <a href="@emailUrl">@item.Email</a>
+                </td>
+                <td>@item.EmployeePermissions?.First(d => d.UserId == item.Id)?.Permission?.NormalizedName</td>
+                <td>
+                    <a asp-action="Edit" title="Редактировать" asp-route-id="@item.Id"><span class="fa fa-edit"></span></a>
+                    <a asp-action="Delete" title="Удалить" asp-route-id="@item.Id"><span class="fa fa-remove"></span></a>
+                </td>
+            </tr>
+            i++;
+        }
+    </tbody>
+</table>

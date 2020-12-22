@@ -1,0 +1,47 @@
+﻿@model Employee
+
+@{
+    ViewData["Title"] = "Удалить пользователя";
+}
+
+<h2 class="text-center">Удалить пользователя</h2>
+<hr />
+<div>
+    <table class="table">
+        <tr>
+            <th>Фото</th>
+            <th>Имя пользователя</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>Телефон</th>
+        </tr>
+        <tr>
+            <td>
+                @if (Model.Photo != null)
+                {
+                    @Html.Raw("<img class='photoBig' id='Photo' alt='Фото'  src=\"data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo) + "\" />")
+                }
+                else
+                {
+                    <img class="photoBig" alt='Фото' id="Photo" src="~/img/defaultUser.png" />
+                }
+            </td>
+            <td>@Html.DisplayFor(model => model.Name)</td>
+            <td>
+                @{ var emailUrl = "mailto:" + Model.Email;}
+                <a href="@emailUrl">@Model.Email</a>
+            </td>
+            <td class="phone">@Html.DisplayFor(model => model.PhoneNumber)</td>
+        </tr>
+    </table>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <div class="form-actions">
+                    <input type="submit" value="Удалить" class="btn btn-default" />
+                    <a asp-action="Index" class="btn btn-default">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

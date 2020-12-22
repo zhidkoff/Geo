@@ -1,0 +1,24 @@
+﻿@model Brigade
+@{
+    ViewData["Title"] = "Добавить бригаду";
+}
+
+<h2 class="text-center">Добавить бригаду</h2>
+<hr />
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Бригада</span>
+                    <input asp-for="Name" type="text" class="form-control" required />
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+                <a asp-action="Index" class="btn btn-default">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+<!DOCTYPE html>
+<html>
+@await Html.PartialAsync("_Head")
+<body>
+    @await Html.PartialAsync("_Header")
+    <div class="container body-content">
+        @RenderBody()
+        <footer class="container">
+            <hr />
+            <div class="row">
+                <div class="col-md-6">&copy; 2020 - <a href="#">GeoCompany</a></div>
+                <div class="col-md-6 text-right"><a href="http://folio.kfliga.ru" target="_blank" rel="nofollow noopener" class="webdeveloper"><img alt='' src="~/img/Logo.min.svg" /></a></div>
+            </div>
+        </footer>
+    </div>
+    @await Html.PartialAsync("_Scripts")
+</body>
+</html>

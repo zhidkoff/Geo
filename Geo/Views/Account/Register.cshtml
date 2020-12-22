@@ -1,0 +1,58 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Добавить пользователя";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form method="post" asp-controller="Account" asp-action="Register" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="row register">
+        <div class="col-md-4 col-md-offset-4">
+            <h2>Добавить пользователя</h2>
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <input type="file" id="photo" name="Photo" onchange="loadFile(event, 'Photo')" style="display:none" accept=".jpg, .JPG, .jpeg, .JPEG, .png, .PNG">
+                    <label for="photo" style="cursor:pointer" data-toggle="tooltip" data-original-title="Сменить фото сотрудника" data-placement="right" onclick="document.getElementById('photo');">
+                        @if (Model?.Photo != null)
+                        {
+                            @Html.Raw("<img alt='' class='photoBig' id='Photo' alt='Фото' src=\"data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo) + "\" />")
+                        }
+                        else
+                        {
+                            <img id="Photo" class="photoBig" alt='Фото' src="~/img/defaultUser.png" />
+                        }
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <input class="form-control" type="text" asp-for="Name" required="required" placeholder="Ваше имя" />
+            </div>
+            <div class="form-group">
+                <input class="form-control email" type="email" asp-for="Email" required="required" placeholder="E-mail" />
+            </div>
+            <div class="form-group">
+                <input class="form-control phone" type="text" asp-for="Phone" placeholder="Номер телефона" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" asp-for="Password" required="required" placeholder="Пароль" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" asp-for="PasswordConfirm" required="required" placeholder="Повторите пароль" />
+
+            </div>
+            <div class="form-group">
+                <select id="RoleId" name="RoleId" class="form-control" data-live-search="true">
+                    @foreach (var item in ViewBag.RoleId)
+                    {
+                        <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-default" type="submit" name="submit" value="Сохранить" />
+                <a asp-action="Index" class="btn btn-default">Отмена</a>
+            </div>
+
+        </div>
+    </div>
+</form>

@@ -1,0 +1,69 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "Редактировать пользователя";
+}
+
+<h2 class="text-center">Редактировать пользователя</h2>
+<hr />
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="NormalizedUserName" />
+            <input type="hidden" asp-for="NormalizedEmail" />
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <input type="file" id="photo" name="Photo" onchange="loadFile(event, 'Photo')" style="display:none" accept=".jpg, .JPG, .jpeg, .JPEG, .png, .PNG">
+                    <label for="photo" style="cursor:pointer" data-toggle="tooltip" data-original-title="Сменить фото сотрудника" data-placement="right" onclick="document.getElementById('photo');">
+                        @if (Model.Photo != null)
+                        {
+                            @Html.Raw("<img alt='Фото' class='photoBig' title='Сменить фото' id='Photo' src=\"data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo) + "\" />")
+                        }
+                        else
+                        {
+                            <img alt='Фото' class="photoBig" id="Photo" title="Сменить фото" src="~/img/defaultUser.png" />
+                        }
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Имя</span>
+                    <input asp-for="Name" type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">E-mail</span>
+                    <input asp-for="Email" type="text" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Телефон</span>
+                    <input asp-for="PhoneNumber" type="tel" class="form-control phone" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Роль</span>
+                    <select id="RoleId" name="RoleId" class="form-control" data-live-search="true">
+                        @foreach (var item in ViewBag.RoleId)
+                        {
+                            <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+                <a asp-action="Index" class="btn btn-default">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
