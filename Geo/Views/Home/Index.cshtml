@@ -1,0 +1,16 @@
+﻿@model OrderViewModel
+
+@{
+    ViewData["Title"] = "Заявки";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Заявки</h2>
+<hr />
+
+<div id="statistic">
+    @await Html.PartialAsync("Components\\_Statistic", Model)
+</div>
+
+<div class="modal fade" id="DetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>

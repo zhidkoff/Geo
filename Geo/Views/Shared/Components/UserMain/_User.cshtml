@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+<form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+    <div class="dropdown">
+        @if (Model?.Photo != null)
+        {
+            @Html.Raw("<img alt='' class='photo' src=\"data:image/jpeg;base64," + Convert.ToBase64String(Model.Photo) + "\" asp-append-version='true' />")
+        }
+        else
+        {
+            <img alt='' src="~/img/defaultUser.png" class="photo" asp-append-version="true" />
+        }
+        <span class="caret"></span>
+        <div class="dropdown-content">
+            <h6 class="dropdown-header">@Model.ShortName</h6>
+            <div class="dropdown-divider"></div>
+            <ul>
+                @if ((await AuthorizationService.AuthorizeAsync(User, "Policy")).Succeeded)
+                {
+                    <li><a asp-controller="Account" asp-action="Index"><span class="fa fa-user"></span> Пользователи</a></li>
+                    <li><a asp-controller="Brigade" asp-action="Index"><span class="fa fa-credit-card"></span> Бригады</a></li>
+                }
+                <li><a asp-controller="Account" asp-action="ChangePassword"><span class="fa fa-key"></span> Сменить пароль</a></li>
+                <li><a href="#" onclick="document.getElementById('logoutForm').submit()">Выход</a></li>
+            </ul>
+        </div>
+    </div>
+</form>
+
+
+
+

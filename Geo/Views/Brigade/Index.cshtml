@@ -1,0 +1,32 @@
+﻿@model List<Brigade>
+@{
+    ViewData["Title"] = "Бригады";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Бригады</h2>
+<hr />
+<a class="btn btn-default" asp-controller="Brigade" asp-action="Create">Добавить бригаду</a>
+<table class="table table-hover text-center">
+    <thead>
+        <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">Бригада</th>
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 1; i < Model.Count + 1; i++)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@Model[i - 1].Name</td>
+                <td>
+                    <a asp-action="Edit" title="Редактировать" asp-route-id="@Model[i - 1].Id"><span class="fa fa-edit"></span></a>
+                    <a asp-action="Delete" title="Удалить" asp-route-id="@Model[i - 1].Id"><span class="fa fa-remove"></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
