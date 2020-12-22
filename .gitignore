@@ -51,7 +51,6 @@ TestResults/
 # Logs and databases #
 ######################
 *.bak
-*.cs
 *.log
 *.sqlite
 # OS generated files #
